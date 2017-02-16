@@ -54,18 +54,16 @@ if __name__ == "__main__":
 	while 1:
 		image = show_depth()
 		image = flip_image(image)
-		image2 =  cv2.imread ('/home/electrizarte/Kinect-Planos/Image_reading/silueta.jpeg', 0)
-		
+		image2 = cv2.imread ('/home/electrizarte/Kinect-Planos/Image_reading/silueta3.jpeg', 0)
+
+		image3 = image2 - image	
 		#image = rslt_fc['img']
-		
 						
-		show_image(image, "matching")
-		show_video(image, "matching")
-		show_image(image2, "prueba")
-		show_video(image2, "prueba")
+		show_image(image3, "matching")
+		show_video(image3, "matching")
 		
 		c = cv2.waitKey(10)
-		
+
 		if 'q' == chr(c & 255):
 			cv2.destroyAllWindows()			
 			break
