@@ -1,20 +1,16 @@
-
 #!/usr/bin/env python
 
 import freenect
 import cv
 import cv2
 import numpy as np
+from PIL import Image
 
 import time
 import sys
 
 threshold = 100
 current_depth = 480
-
-fixed_threshold = 600
-fixed_depth2 = 200
-fixed_depth = 300
 
 def change_threshold(value):
     global threshold
@@ -34,28 +30,6 @@ def show_depth():
 	
 	return depth
 	
-def show_depth2():
-        global fixed_threshold
-        global fixed_depth
-
-        depth, timestamp = freenect.sync_get_depth()
-       	depth = 255 * np.logical_and(depth >= fixed_depth- fixed_threshold, depth <= fixed_depth + fixed_threshold)
-        depth = depth.astype(np.uint8)
-
-        return depth
-
-def show_depth3():
-        global fixed_threshold
-        global fixed_depth2
-
-        depth, timestamp = freenect.sync_get_depth()
-        depth = 255 * np.logical_and(depth >= fixed_depth2- fixed_threshold, depth <= fixed_depth2 + fixed_threshold)
-        depth = depth.astype(np.uint8)
-
-        return depth
-
-
-
 def show_video(image, image_name):	
 	cv2.namedWindow(image_name)
 	cv2.createTrackbar(image_name + ' threshold', image_name, threshold, 600, change_threshold)
@@ -76,35 +50,22 @@ def flip_image(imagen):
 
 if __name__ == "__main__":
 	print "Presione 'q' para salir"
-	
 			
 	while 1:
 		image = show_depth()
+		
 		image = flip_image(image)
-		image2 = show_depth2()
-		image2 = flip_image(image2)
-		image4 = cv2.imread('paisaje.jpg', 0)
-		image6 = show_depth3()
-		image6 = flip_image(image6)
-
-		image3 = image2 - image6 - image
-		image5 = cv2.subtract(image4, image3)	
+		image2 = Image.open("/home/electrizarte/Kinect-Planos/Image_reading/silueta.jpeg") 
+		
 		#image = rslt_fc['img']
-						
-		#show_image(image, "matching")
-		#show_video(image, "matching")
-		#show_image(image2, "matching2")
-		#show_video(image2, "matching2")		
-		#show_image(image3, "matching3")
-		#show_video(image3, "matching3")
-		#show_image(image4, "matching4")
-		show_image(image5, "matching5")
-
+		
+				
+		show_video(image, "matching")
+		show_image(image2, "matching")
+		show_video(image2, "matching")
 		
 		c = cv2.waitKey(10)
-
+		
 		if 'q' == chr(c & 255):
-			cv2.destroyAllWindows()			
 			break
 			output.close()
-
