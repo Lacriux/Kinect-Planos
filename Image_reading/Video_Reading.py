@@ -77,13 +77,15 @@ def flip_image(imagen):
 if __name__ == "__main__":
 	print "Presione 'q' para salir"
 	
-			
+	video = cv2.VideoCapture('video.mp4')	
+	
 	while 1:
 		image = show_depth()
 		image = flip_image(image)
 		image2 = show_depth2()
 		image2 = flip_image(image2)
-		image4 = cv2.imread('paisaje.jpg', 1)
+		_, image4 = video.read()
+		image4 = cv2.resize(image4, (640, 480))
 		image6 = show_depth3()
 		image6 = flip_image(image6)
 
@@ -92,7 +94,6 @@ if __name__ == "__main__":
 		#image3 = cv2.subtract(image, image3)
 		image3 = cv2.cvtColor(image3, cv2.COLOR_GRAY2BGR)    
 				
-		
 		#rows,cols,channels = image4.shape
 		#roi = image4[0:rows, 0:cols]
 
