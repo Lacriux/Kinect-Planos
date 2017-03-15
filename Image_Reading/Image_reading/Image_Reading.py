@@ -77,22 +77,24 @@ def flip_image(imagen):
 if __name__ == "__main__":
 	print "Presione 'q' para salir"
 	
-			
 	while 1:
 		image = show_depth()
 		image = flip_image(image)
 		image2 = show_depth2()
 		image2 = flip_image(image2)
 		image4 = cv2.imread('paisaje.jpg', 1)
+		#image4 = cv2.resize(image4, (640, 480))
 		image6 = show_depth3()
 		image6 = flip_image(image6)
 
+		image4 = cv2.resize(image4, (1920, 1080))	
+
 		image3 = image2 - image6 - image
+		image3 = cv2.resize(image3, (1920, 1080))
 		#image3 = cv2.subtract(image6,image2)
 		#image3 = cv2.subtract(image, image3)
 		image3 = cv2.cvtColor(image3, cv2.COLOR_GRAY2BGR)    
 				
-		
 		#rows,cols,channels = image4.shape
 		#roi = image4[0:rows, 0:cols]
 
@@ -116,4 +118,5 @@ if __name__ == "__main__":
 			cv2.destroyAllWindows()			
 			break
 			output.close()
+
 
